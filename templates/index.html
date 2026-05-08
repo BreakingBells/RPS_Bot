@@ -6,6 +6,7 @@
         body { font-family: Arial; text-align: center; margin-top: 50px; }
         button { padding: 12px 25px; margin: 10px; font-size: 20px; }
         h1 { margin-bottom: 40px; }
+        hr { margin: 40px; }
     </style>
 </head>
 <body>
@@ -23,6 +24,14 @@
     <h2>Computer chose: {{ computer }}</h2>
     <h1>{{ result }}</h1>
 {% endif %}
+
+<hr>
+
+<h2>Stats</h2>
+<p>Wins: {{ wins }}</p>
+<p>Losses: {{ losses }}</p>
+<p>Ties: {{ ties }}</p>
+<h3>Win Percentage: {{ win_pct }}%</h3>
 
 </body>
 </html>
