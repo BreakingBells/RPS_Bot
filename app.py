@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from rps_logic import load_history, save_move, predict_move, counter, is_win
+from rps_logic import load_history, save_move, predict_move, counter, is_win, compute_stats
 
 app = Flask(__name__)
 
@@ -26,10 +26,17 @@ def index():
 
         save_move(round_num, player)
 
+    history = load_history()
+    wins, losses, ties, win_pct = compute_stats(history)
+
     return render_template("index.html",
                            result=result,
                            player=player,
-                           computer=computer)
+                           computer=computer,
+                           wins=wins,
+                           losses=losses,
+                           ties=ties,
+                           win_pct=win_pct)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
