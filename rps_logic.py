@@ -58,4 +58,35 @@ def counter(move):
 
 def is_win(player, opponent):
     return (
-        (player == "r" and opponent
+        (player == "r" and opponent == "s") or
+        (player == "s" and opponent == "p") or
+        (player == "p" and opponent == "r")
+    )
+
+def compute_stats(history):
+    wins = 0
+    losses = 0
+    ties = 0
+
+    sim_history = []
+    for move in history:
+        if len(sim_history) == 0:
+            predicted = random.choice(["r", "p", "s"])
+        else:
+            predicted = predict_move(sim_history)
+
+        computer = counter(predicted)
+
+        if move == computer:
+            ties += 1
+        elif is_win(move, computer):
+            wins += 1
+        else:
+            losses += 1
+
+        sim_history.append(move)
+
+    total = wins + losses + ties
+    win_pct = (wins / total * 100) if total > 0 else 0
+
+    return wins, losses, ties, round(win_pct, 1)
